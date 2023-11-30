@@ -1,4 +1,8 @@
-const backendServiceURL = "https://<your-backend-service-url>/analyze-image";
+$(document).ready(function() {
+  $('#upload-button').click(analyzeImage);
+});
+
+const backendServiceURL = "https://outfit-recommendation.azurewebsites.net/";
 
 function analyzeImage() {
   const imageUrl = $('#image-url').val();
