@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Analysis</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="script.js"></script>
+</head>
+<body>
+
+  <style>
+      body {
+      font-family: sans-serif;
+      background-image: url('https://twooctobers.com/wp-content/uploads/2018/06/Clothing-Retailer-Store.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .upload-container {
+      margin: 0 auto;
+      width: 500px;
+      text-align: center;
+    }
+
+    .upload-container input {
+      margin-bottom: 10px;
+    }
+
+    .upload-container button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #35495f;
+      color: #c33939;
+      cursor: pointer;
+    }
+
+    .recommendations {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      margin-top: 20px;
+    }
+
+    .recommendations li {
+      margin-bottom: 10px;
+    }
+  </style>
+  <h1>Image Analysis</h1>
+  <div class="upload-container">
+    <input type="text" id="image-url" placeholder="Image URL">
+    <button id="upload-button">Analyze</button>
+  </div>
+  <ul id="detected-items"></ul>
+</body>
+</html>
