@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Recommendation System</title>
+</head>
+<body>
+    <h1>Image Recommendation System</h1>
+    <form id="imageForm">
+        <input type="file" accept="image/*" id="imageInput" />
+        <button type="button" onclick="uploadImage()">Upload Image</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        function uploadImage() {
+            var input = document.getElementById('imageInput');
+            var file = input.files[0];
+
+            if (file) {
+                var formData = new FormData();
+                formData.append('image', file);
+
+                var endpoint = 'https://outfitrecommendation.cognitiveservices.azure.com';
+                var apiKey = '464d36c302c24507a131695cca74dac4';
+                var iterationId = '8a74d741-a4fa-401d-8172-8e0528c38d4d';
+                var apiUrl = `${endpoint}/customvision/v3.0/Prediction/a1c2f6fd-7732-4b55-b11c-ed7be6987f6e/classify/iterations/8a74d741-a4fa-401d-8172-8e0528c38d4d/image`;
+
+
+                fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Prediction-Key': apiKey,
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the prediction results
+                    console.log(data);
+                    document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            } else {
+                alert('Please select an image.');
+            }
+            
+        }
+    </script>
+</body>
+</html>
