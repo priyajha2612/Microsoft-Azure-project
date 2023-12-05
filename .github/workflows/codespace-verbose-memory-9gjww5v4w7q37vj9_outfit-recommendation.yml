@@ -66,4 +66,4 @@ jobs:
         with:
           app-name: 'outfit-recommendation'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_128A2B5B2A834F0BB755E84C83D54A4E }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_06C2F793FA4A42038052605799143156 }}
