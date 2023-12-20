@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Recommendation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://image.shutterstock.com/image-photo/friendly-looking-positive-young-woman-260nw-1760694056.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            color: rgb(139, 55, 55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #recommendations {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black; /* Adjust text color for better visibility on the background */
+        }
+
+        #imageInput {
+            display: none; /* Hide the default file input */
+        }
+
+        #customButton {
+            background-color: #101511;
+            color: rgb(196, 92, 92);
+            padding: 15px 30px; /* Adjust the padding to make the button larger */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px; /* Adjust font size */
+        }
+
+        #customButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Recommendation</h1>
+    
+    <!-- Use a label to style the file input and create a clickable area -->
+    <label for="imageInput" id="customButton">Choose File</label>
+    <input type="file" id="imageInput" accept="image/*" onchange="uploadImage()" style="display: none;">
+    
+    <ul id="recommendations"></ul>
+
+    <script>
+        // Function to manually trigger image upload
+        function manuallyTriggerUpload() {
+            const input = document.getElementById('imageInput');
+            input.click(); // Trigger the file input click event
+        }
+
+        // Function to upload image and display recommendations
+        async function uploadImage() {
+            const input = document.getElementById('imageInput');
+            const file = input.files[0];
+
+            if (!file) {
+                alert('Please select an image.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('image', file);
+
+            const customVisionApiUrl = 'https://myproject01-prediction.cognitiveservices.azure.com/customvision/v3.0/Prediction/539219e2-8d65-4709-ba51-3a6e4b975e98/classify/iterations/Iteration1/image';
+            const predictionKey = '2dbca35027b34f81905d0d0241f3746c';
+
+            try {
+                // Show loading indicator or message
+                // ...
+
+                const response = await fetch(customVisionApiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Prediction-Key': predictionKey,
+                    },
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const predictions = data.predictions;
+
+                // Process predictions
+                const processedPredictions = processPredictions(predictions);
+
+                // Display processed predictions on the webpage
+                displayRecommendations(processedPredictions);
+
+                // Hide loading indicator or message
+                // ...
+            } catch (error) {
+                console.error('Error:', error);
+                // Show error message to the user
+                alert('Image upload failed. Please try again.');
+            }
+        }
+
+        // Function to process predictions
+        function processPredictions(predictions) {
+            // Filter predictions below a certain confidence threshold
+            const filteredPredictions = predictions.filter(prediction => prediction.probability > 0.3);
+
+            // Sort predictions by confidence score
+            const sortedPredictions = filteredPredictions.sort((a, b) => b.probability - a.probability);
+
+            return sortedPredictions;
+        }
+
+        // Function to display recommendations
+        function displayRecommendations(predictions) {
+            const recommendationsList = document.getElementById('recommendations');
+            recommendationsList.innerHTML = '';
+
+            if (predictions.length === 0) {
+                const listItem = document.createElement('li');
+                listItem.innerText = 'No recommendations';
+                recommendationsList.appendChild(listItem);
+            } else {
+                predictions.forEach(prediction => {
+                    const listItem = document.createElement('li');
+                    listItem.innerText = `${prediction.tagName} - Confidence: ${(prediction.probability * 100).toFixed(2)}%`;
+                    recommendationsList.appendChild(listItem);
+                });
+            }
+        }
+
+        // Automatically trigger image upload when the page loads
+        manuallyTriggerUpload();
+    </script>
+</body>
+</html>
