@@ -6,6 +6,9 @@ The Image Recommendation Project is designed to provide users with intelligent a
 Leveraging the power of machine learning and cloud services, the project integrates Azure Custom Vision, Azure Storage, and MongoDB to deliver accurate predictions
 and efficient storage.
 
+
+
+
 ## Services Used
 ### 1. Azure Custom Vision
 
@@ -52,6 +55,61 @@ MongoDB enables seamless retrieval and analysis of prediction data, contributing
 - **Database Connection String:** Replace_with_your_mongodb_connection_string
 - **Database Name:**mydb01
 - **Collection Name:** your_collection_name
+
+  ## Working model of services
+
+Step 1: Set Up Azure Custom Vision
+Create Custom Vision Project:
+
+Log in to the Azure Custom Vision portal.
+Create a new project and upload a diverse set of images representing your classification categories (tags).
+Train the model until it reaches satisfactory accuracy.
+Get Prediction Endpoint and Key:
+
+Obtain the endpoint URL and prediction key from the Custom Vision portal.
+These will be used to make predictions using the trained model.
+Step 2: Configure Azure Storage
+Create an Azure Storage Account:
+
+In the Azure portal, create a new Storage Account.
+Set up a container to store user-uploaded images.
+Obtain Connection String:
+
+Retrieve the connection string for your Storage Account.
+This will be used to connect to Azure Storage from your application.
+Step 3: Set Up MongoDB
+Create a MongoDB Database:
+
+Create a new MongoDB database in Azure Cosmos DB.
+Define MongoDB Schema:
+
+Define a schema for storing predictions and related information in MongoDB.
+This schema will guide how data is structured within MongoDB.
+Step 4: Integrate Azure Services in Your Application
+Install Necessary Packages:
+
+Install the required Node.js packages, including @azure/storage-blob for Azure Storage and mongodb for MongoDB.
+Configure Azure Storage:
+
+Use the obtained Azure Storage connection string to set up the Storage client in your application.
+Implement logic to upload and retrieve images from Azure Storage.
+Configure MongoDB Connection:
+
+Set up the connection to your MongoDB database using the MongoDB Node.js driver.
+Process Image Uploads:
+
+When a user uploads an image, store it in Azure Storage.
+Trigger the Custom Vision API with the uploaded image to obtain predictions.
+Store Predictions in MongoDB:
+
+After receiving predictions, create a new document based on the defined MongoDB schema and insert it into the MongoDB collection.
+Step 5: Implement Recommendation Logic
+Retrieve Predictions:
+
+Implement logic to retrieve predictions from MongoDB based on user-uploaded images.
+Display Recommendations:
+
+Display the obtained predictions on the user interface, showcasing the predicted tags and confidence levels.
 
 
 ## Outcome 
