@@ -56,7 +56,7 @@ MongoDB enables seamless retrieval and analysis of prediction data, contributing
 - **Database Name:**mydb01
 - **Collection Name:** your_collection_name
 
-  ## Working model of services
+## Internal Working model of services
 
 Step 1: Set Up Azure Custom Vision
 Create Custom Vision Project:
@@ -68,6 +68,7 @@ Get Prediction Endpoint and Key:
 
 Obtain the endpoint URL and prediction key from the Custom Vision portal.
 These will be used to make predictions using the trained model.
+
 Step 2: Configure Azure Storage
 Create an Azure Storage Account:
 
@@ -77,6 +78,7 @@ Obtain Connection String:
 
 Retrieve the connection string for your Storage Account.
 This will be used to connect to Azure Storage from your application.
+
 Step 3: Set Up MongoDB
 Create a MongoDB Database:
 
@@ -85,6 +87,7 @@ Define MongoDB Schema:
 
 Define a schema for storing predictions and related information in MongoDB.
 This schema will guide how data is structured within MongoDB.
+
 Step 4: Integrate Azure Services in Your Application
 Install Necessary Packages:
 
@@ -103,13 +106,14 @@ Trigger the Custom Vision API with the uploaded image to obtain predictions.
 Store Predictions in MongoDB:
 
 After receiving predictions, create a new document based on the defined MongoDB schema and insert it into the MongoDB collection.
+
 Step 5: Implement Recommendation Logic
 Retrieve Predictions:
 
 Implement logic to retrieve predictions from MongoDB based on user-uploaded images.
-Display Recommendations:
 
-Display the obtained predictions on the user interface, showcasing the predicted tags and confidence levels.
+
+## Display the obtained predictions on the user interface, showcasing the predicted tags and confidence levels.
 
 
 ## Outcome 
